@@ -11,7 +11,7 @@ module.exports=(db)=>{
       longitude } = req.body;
   
     if (!name || !address || !latitude || !longitude) {
-      return res.status(400).json({ message: 'All fields are required' });
+      return res.status(400).json({ message: 'All fields are required' })
     }
 
     const query = 'INSERT INTO schools (name, address, latitude, longitude) VALUES (?, ?, ?, ?)';
