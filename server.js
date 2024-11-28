@@ -24,6 +24,8 @@ db.connect(err => {
     console.log('Connected to mysql');
 });
 
+const cors = require('cors');
+app.use(cors());
 
 const addSchoolRoute = require("./routes/addSchool")
 const listSchoolRoute = require("./routes/listSchool")
