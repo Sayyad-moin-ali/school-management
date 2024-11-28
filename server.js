@@ -28,8 +28,8 @@ db.connect(err => {
 const addSchoolRoute = require("./routes/addSchool")
 const listSchoolRoute = require("./routes/listSchool")
 
-app.use('/api', addSchoolRoute(db));
-app.use("/api", listSchoolRoute(db))
+app.use( addSchoolRoute(db));
+app.use( listSchoolRoute(db))
 
 app.listen(port, () => {
     console.log(`Server running on http://localhost:${port}`);
