@@ -6,19 +6,26 @@ const cors = require('cors');
 
 
 const app = express();
-const port = 3000;
-
+const port = 4000 || 3000;
+app.get('/test', (req, res) => {
+    res.send('Test route is working!');
+});
 app.use(bodyParser.json());
 app.use(express.json());
 require('dotenv').config();
 app.use(cors({ origin: '*' }));
 
+
+// const link='mysql://root:lFiuRrsomfRCmsfbBVkkHVgKfnYjUrUR@autorack.proxy.rlwy.net:37280/railway'
+
 const db = mysql.createConnection({
-    host: 'localhost',
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_DATABASE
-})
+    host: process.env.MYSQLHOST,
+    port: process.env.MYSQLPORT,
+    user: process.env.MYSQLUSER,
+    password: process.env.MYSQL_ROOT_PASSWORD,
+    database: process.env.MYSQL_DATABASE,
+});
+
 
 db.connect(err => {
     if (err) {
@@ -29,11 +36,14 @@ db.connect(err => {
 });
 
 
+
+
+
 const addSchoolRoute = require("./routes/addSchool")
 const listSchoolRoute = require("./routes/listSchool")
 
 app.use('/addSchool', addSchoolRoute(db));
-app.use( '/listSchool', listSchoolRoute(db))
+app.use('/listSchool', listSchoolRoute(db))
 
 app.listen(port, () => {
     console.log(`Server running on http://localhost:${port}`);
