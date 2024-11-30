@@ -16,14 +16,17 @@ require('dotenv').config();
 app.use(cors({ origin: '*' }));
 
 
-const link=process.env.LINK
+const dbConfig = process.env.LINK
+    ? process.env.LINK // Use connection string if available
+    : {
+          host: process.env.MYSQLHOST,
+          port: process.env.MYSQLPORT,
+          user: process.env.MYSQLUSER,
+          password: process.env.MYSQL_PASSWORD,
+          database: process.env.MYSQLDATABASE,
+      };
 
-const db = mysql.createConnection(link);
-    // host: process.env.MYSQLHOST,
-    // port: process.env.MYSQLPORT,
-    // user: process.env.MYSQLUSER,
-    // password: process.env.MYSQL_PASSWORD,
-    // database: process.env.MYSQLDATABASE,
+const db = mysql.createConnection(dbConfig);
 
 
 
