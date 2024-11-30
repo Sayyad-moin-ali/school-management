@@ -6,7 +6,7 @@ const cors = require('cors');
 
 
 const app = express();
-const port = 4000 || 3000;
+const port = 3000;
 app.get('/test', (req, res) => {
     res.send('Test route is working!');
 });
@@ -16,15 +16,15 @@ require('dotenv').config();
 app.use(cors({ origin: '*' }));
 
 
-// const link='mysql://root:lFiuRrsomfRCmsfbBVkkHVgKfnYjUrUR@autorack.proxy.rlwy.net:37280/railway'
+const link=process.env.LINK
 
-const db = mysql.createConnection({
-    host: process.env.MYSQLHOST,
-    port: process.env.MYSQLPORT,
-    user: process.env.MYSQLUSER,
-    password: process.env.MYSQL_ROOT_PASSWORD,
-    database: process.env.MYSQL_DATABASE,
-});
+const db = mysql.createConnection(link);
+    // host: process.env.MYSQLHOST,
+    // port: process.env.MYSQLPORT,
+    // user: process.env.MYSQLUSER,
+    // password: process.env.MYSQL_PASSWORD,
+    // database: process.env.MYSQLDATABASE,
+
 
 
 db.connect(err => {
