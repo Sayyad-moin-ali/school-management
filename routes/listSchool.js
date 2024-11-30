@@ -4,7 +4,7 @@ const mysql = require("mysql2")
 const router = express.Router();
 
 module.exports = (db) => {
-  router.get('/listSchool', (req, res) => {
+  router.get('/', (req, res) => {
     const { userLat, userLng } = req.query;
 
     if (!userLat || !userLng) {

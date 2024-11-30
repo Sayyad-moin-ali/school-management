@@ -1,20 +1,23 @@
 const express = require('express');
 const router = express.Router();
-
 module.exports = (db) => {
-    router.post('/', (req, res) => {
-        const { name, address, latitude, longitude } = req.body;
+    const express = require('express');
+    const router = express.Router();
 
-        if (!name || !address || !latitude || !longitude) {
-            return res.status(400).json({ message: 'All fields are required' });
+    router.post('/', (req, res) => {
+        const { name, location } = req.body; // Adjust field names based on your data
+
+        if (!name || !location) {
+            return res.status(400).json({ error: 'Name and location are required.' });
         }
 
-        const query = 'INSERT INTO schools (name, address, latitude, longitude) VALUES (?, ?, ?, ?)';
-        db.execute(query, [name, address, latitude, longitude], (err, results) => {
+        const query = 'INSERT INTO schools (name, location) VALUES (?, ?)';
+        db.query(query, [name, location], (err, result) => {
             if (err) {
-                return res.status(500).json({ message: 'Error inserting school', error: err.message });
+                console.error('Database error:', err);
+                return res.status(500).json({ error: 'Database error.' });
             }
-            res.status(201).json({ message: 'School added successfully', id: results.insertId });
+            res.status(201).json({ message: 'School added successfully.', schoolId: result.insertId });
         });
     });
 
